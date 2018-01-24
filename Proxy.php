@@ -132,7 +132,7 @@ class Proxy
 
         if ($response->isOk) {
             $content = $response->getContent();
-            Yii::$app->cache->set($cacheKey, $content, 600);
+            Yii::$app->cache->set($cacheKey, $content, 120);
 
             return $content;
         } else {
