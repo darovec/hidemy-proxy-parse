@@ -1,0 +1,21 @@
+{
+    "name": "darovec/yii2-hidemy-proxy-parse",
+    "description": "Parse proxy list",
+    "type": "yii2-extension",
+    "keywords": ["parse proxy"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "darovec",
+            "email": "endarovec@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "~2.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "darovec\\hidemyproxy\\": ""
+        }
+    }
+}
