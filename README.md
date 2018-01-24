@@ -24,10 +24,10 @@ Usage
 -----
 
 ```
-use darovec\hidemyproxy\Parse;
+use darovec\hidemyproxy\Proxy;
 
-$ipOne = Parse::one();
-$ipList = Parse::list();
+$ipOne = Proxy::one();
+$ipList = Proxy::list();
 ```
 
 <b>$ipOne</b> - single proxy ip
@@ -42,13 +42,13 @@ Usage exemple
 namespace app\controllers;
 
 use yii\web\Controller;
-use darovec\hidemyproxy\Parse;
+use darovec\hidemyproxy\Proxy;
 
 class ProxyController extends Controller
 {
 	public function actionIndex()
 	{
-		$proxyIp = Parse::one();
+		$proxyIp = Proxy::one();
 	}
 
 }

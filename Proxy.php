@@ -4,7 +4,7 @@ namespace darovec\hidemyproxy;
 
 use yii\httpclient\Client;
 
-class Parse
+class Proxy
 {
     private $url = 'https://hidemy.name/ru/proxy-list/?ports=80&type=h#list';
 
@@ -15,8 +15,8 @@ class Parse
     private $list = [];
 
     /**
-     * instance of Parse
-     * @var $instance Parse
+     * instance of Proxy
+     * @var $instance Proxy
      **/
     private static $instance = null;
 
@@ -46,7 +46,7 @@ class Parse
     private $lastError = [];
 
     /**
-     * disable Parse constructor.
+     * disable Proxy constructor.
      */
     private function __construct()
     {
@@ -62,7 +62,7 @@ class Parse
     }
 
     /**
-     * @return Parse
+     * @return Proxy
      */
     public static function getInstance()
     {
