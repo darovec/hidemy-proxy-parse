@@ -2,6 +2,7 @@
 
 namespace darovec\hidemyproxy;
 
+use Yii;
 use yii\httpclient\Client;
 
 class Proxy
@@ -105,11 +106,17 @@ class Proxy
     }
 
     /**
-     * parse page
+     * get page fore parse
+     * @return bool|string
      */
-    private function parse()
+    private function getPage()
     {
-        $this->setError(false);
+        $cacheKey = 'darovec.hidemyproxy.getpage';
+
+        $content = Yii::$app->cache->get($cacheKey);
+        if ($content) {
+            return $content;
+        }
 
         $client = new Client(['baseUrl' => $this->url]);
         $request = $client->createRequest()
@@ -125,6 +132,24 @@ class Proxy
 
         if ($response->isOk) {
             $content = $response->getContent();
+            Yii::$app->cache->set($cacheKey, $content, 600);
+
+            return $content;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * parse page
+     */
+    private function parse()
+    {
+        $this->setError(false);
+
+        $content = $this->getPage();
+
+        if ($content) {
             $pattern = "/<td class=tdl>(.*)<\/td>/U";
             preg_match_all($pattern, $content, $matches);
 
