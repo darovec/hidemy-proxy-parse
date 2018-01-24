@@ -30,8 +30,9 @@ $ipOne = Parse::one();
 $ipList = Parse::list();
 ```
 
-$ipOne - single proxy ip
-$ipList - list of proxy ip
+<b>$ipOne</b> - single proxy ip
+
+<b>$ipList</b> - list of proxy ip
 
 Usage exemple
 -------------
