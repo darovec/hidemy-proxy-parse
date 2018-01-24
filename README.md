@@ -26,10 +26,12 @@ Usage
 ```
 use darovec\hidemyproxy\Parse;
 
-
+$ipOne = Parse::one();
+$ipList = Parse::list();
 ```
 
-$data- is array with proxys
+$ipOne - single proxy ip
+$ipList - list of proxy ip
 
 Usage exemple
 -------------
@@ -45,7 +47,7 @@ class ProxyController extends Controller
 {
 	public function actionIndex()
 	{
-		
+		$proxyIp = Parse::one();
 	}
 
 }
