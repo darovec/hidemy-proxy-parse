@@ -7,13 +7,19 @@ use yii\httpclient\Client;
 
 class Proxy
 {
-    private $url = 'https://hidemy.name/ru/proxy-list/?ports=80&type=h#list';
+    private $url = 'https://hidemy.name/ru/proxy-list/#list';
 
     /**
      * IP list
      * @var array
      */
     private $list = [];
+
+    /**
+     * active ip and port
+     * @var array|null
+     */
+    private $activeIp = null;
 
     /**
      * instance of Proxy
@@ -150,13 +156,18 @@ class Proxy
         $content = $this->getPage();
 
         if ($content) {
-            $pattern = "/<td class=tdl>(.*)<\/td>/U";
+            $pattern = "/<td class=tdl>(.*)<\/td><td>(.*)<\/td>/U";
             preg_match_all($pattern, $content, $matches);
 
-            if (isset($matches[1][0])) {
+            if (isset($matches[1][0]) && isset($matches[2][0])) {
                 $this->list = [];
-                foreach ($matches[1] as $ip) {
-                    $this->list[] = $ip;
+                foreach ($matches[1] as $cnt => $ip) {
+                    if (isset($matches[2][$cnt])) {
+                        $this->list[] = [
+                            'ip' => $ip,
+                            'port' => $matches[2][$cnt]
+                        ];
+                    }
                 }
             } else {
                 $this->setError(self::ERROR_CODE_PARSE);
@@ -192,10 +203,29 @@ class Proxy
     }
 
     /**
+     * return last error
      * @return array
      */
     public static function getLastError()
     {
         return self::getInstance()->lastError;
+    }
+
+    /**
+     * set last active ip
+     * @param $ip
+     */
+    public static function setActive($ip)
+    {
+        self::getInstance()->activeIp = $ip;
+    }
+
+    /**
+     * get last active ip
+     * @return array|null
+     */
+    public static function getActive()
+    {
+        return self::getInstance()->activeIp;
     }
 }
